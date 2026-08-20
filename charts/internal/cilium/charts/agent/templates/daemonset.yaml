@@ -150,8 +150,8 @@ spec:
         resources:
           {{- toYaml .Values.resources | trim | nindent 10 }}
         name: cilium-agent
-{{- if .Values.global.prometheus.enabled }}
         ports:
+{{- if .Values.global.prometheus.enabled }}
         - containerPort: {{ .Values.global.prometheus.port }}
           hostPort: {{ .Values.global.prometheus.port }}
           name: prometheus
@@ -166,6 +166,8 @@ spec:
           hostPort: {{ .Values.global.hubble.metrics.port }}
           name: hubble-metrics
           protocol: TCP
+{{- end }}
+{{- if .Values.global.hubble.enabled }}
         - name: peer-service
           containerPort: {{ .Values.global.hubble.peerPort }}
           hostPort: {{ .Values.global.hubble.peerPort }}
